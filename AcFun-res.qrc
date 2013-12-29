@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>i18n/AcFun_zh.qm</file>
+        <file>splash/splash_640.png</file>
+    </qresource>
+</RCC>

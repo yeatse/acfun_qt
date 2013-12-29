@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Name=AcFun
+Exec=/usr/bin/invoker --splash /opt/AcFun/bin/splash_n9.png --type=d -s /opt/AcFun/bin/AcFun
+Icon=/usr/share/icons/hicolor/80x80/apps/AcFun80.png
+X-Window-Icon=
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable

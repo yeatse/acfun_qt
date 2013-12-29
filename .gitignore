@@ -1,0 +1,33 @@
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+*.moc
+
+# Qt-es
+
+*.pro.user
+*.pro.user.*
+moc_*.cpp
+qrc_*.cpp
+Makefile
+*-build-*
+.make.cache
+
+# Symbian
+bld.inf
+*.loc
+*.rss
+*_exe.mmp
+*.pkg
+*.sis
+
+# Meego Harmattan
+*_armel.*

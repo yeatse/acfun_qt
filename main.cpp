@@ -39,6 +39,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QTranslator translator;
     if (translator.load(app->applicationName()+"_"+locale, ":/i18n/"))
         app->installTranslator(&translator);
+
     // For fiddler network debugging
 #ifdef Q_WS_SIMULATOR
     QNetworkProxy proxy;

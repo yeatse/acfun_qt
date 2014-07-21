@@ -28,7 +28,7 @@ function loadSina(){
                                 launchPlayer("http://v.iask.com/v_play_ipad.php?vid="+obj.ipad_vid);
                             } else {
                                 addMessage("未支持的视频格式，正在尝试下载视频...");
-                                Qt.openUrlExternally("http://v.iask.com/v_play_ipad.php?vid="+sid);
+                                utility.openURLDefault("http://v.iask.com/v_play_ipad.php?vid="+sid);
                             }
                         } catch (e){
                             addMessage("无法解析视频> <");
@@ -86,47 +86,29 @@ function loadQQ(){
     addMessage("视频来自QQ，正在打开浏览器...");
     var u = "http://vsrc.store.qq.com/"+sid
             +".mp4?channel=vhot2&sdtfrom=v2&r=931&rfc=v0"
-    Qt.openUrlExternally(u);
+    utility.openURLDefault(u);
 }
 
 function loadPps(){
     addMessage("视频来自PPS，正在解析源地址...");
     var url = "http://ipd.pps.tv/web/api/v_play.php?vid="+sid;
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-                if (xhr.readyState === xhr.DONE){
-                    if (xhr.status === 200){
-                        try {
-                            var xml = xhr.responseXML;
-                            var a = xml.documentElement;    //video
-                            for (var i=0; i<a.childNodes.length; i++){
-                                var b = a.childNodes[i];
-                                if (b.nodeName === "durl"){ //durl
-                                    for (var j=0; j<b.childNodes.length; j++){
-                                        var c = b.childNodes[j];
-                                        if (c.nodeName === "url"){  //url
-                                            var url = c.childNodes[0].nodeValue;
-                                            if (typeof(url) === "string"){
-                                                url = url.replace("vurl.ppstv.com","vurl.pps.tv");
-                                                url = url.substring(0, url.length-4)+".mp4";
-                                                launchPlayer(url);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            addMessage("无法解析视频> <");
-                        } catch(e){
-                            addMessage("无法解析视频> <");
-                        }
-                    } else {
-                        addMessage("网络连接错误，代码"+xhr.status);
-                    }
-                }
-            }
-    xhr.open("GET", url);
-    xhr.send();
+    networkHelper.createDeflatedRequest(url);
+}
+
+function loadPpsData(data){
+    var url = utility.domNodeValue(data, "url");
+    if (url.length === 0){
+        addMessage("无法解析视频> <");
+        return;
+    }
+    if (url.indexOf("vurl.pps.iqiyi.com") > 0){
+        addMessage("未支持的视频格式，正在尝试下载视频...");
+        utility.openURLDefault(url);
+    } else {
+        url = url.replace("vurl.ppstv.com","vurl.pps.tv");
+        url = url.substring(0, url.length-4)+".mp4";
+        launchPlayer(url);
+    }
 }
 
 function addMessage(msg){

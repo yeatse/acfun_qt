@@ -13,6 +13,7 @@ class QNetworkRequestHelper : public QObject, public QDeclarativeParserStatus
 public:
     explicit QNetworkRequestHelper(QObject *parent = 0);
     Q_INVOKABLE void createDeleteRequest(QUrl url);
+    Q_INVOKABLE void createDeflatedRequest(QUrl url);
 
 signals:
     void requestFailed(QUrl url);
@@ -24,6 +25,7 @@ private slots:
 private:
     virtual void classBegin();
     virtual void componentComplete();
+    QByteArray gUncompress(const QByteArray &data);
 
     QNetworkAccessManager* nam;
 };

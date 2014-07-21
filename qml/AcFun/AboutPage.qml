@@ -118,16 +118,14 @@ AcFun弹幕视频网(AcFun.tv)是中国最具影响力的网络弹幕视频平�
                             pageStack.push(Qt.resolvedUrl("UserPageCom/ConverPage.qml"), prop);
                         }
                     } else {
-                        Qt.openUrlExternally("http://tieba.baidu.com/p/2180383845");
+                        utility.openURLDefault("http://tieba.baidu.com/p/2180383845");
                     }
                 }
             }
             MenuItem {
                 platformInverted: true;
                 text: "作者微博";
-                onClicked: {
-                    Qt.openUrlExternally("http://m.weibo.cn/u/1786664917");
-                }
+                onClicked: utility.openURLDefault("http://m.weibo.cn/u/1786664917");
             }
         }
     }

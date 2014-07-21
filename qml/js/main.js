@@ -52,6 +52,7 @@ function loadVideoModel(model, list){
         list.forEach(function(value){
                          var prop = {
                              acId: value.acId,
+                             channelId: value.channelId,
                              name: value.name,
                              previewurl: value.previewurl,
                              viewernum: value.viewernum,
@@ -96,6 +97,7 @@ function getHomeCategroies(option, onSuccess, onFailed){
                         value.videos.forEach(function(video){
                                                  var v = {
                                                      acId: video.acId,
+                                                     channelId: video.channelId,
                                                      name: video.name,
                                                      desc: video.desc,
                                                      previewurl: video.previewurl,
@@ -334,6 +336,7 @@ function getUserVideos(option, onSuccess, onFailed){
             list.forEach(function(value){
                              var prop = {
                                  acId: value.acId,
+                                 channelId: value.category,
                                  name: value.name,
                                  desc: value.desc,
                                  previewurl: value.previewurl,

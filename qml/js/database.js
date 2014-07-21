@@ -1,16 +1,16 @@
 .pragma library
 
 var QUERY = {
-    DBVER: "2.0",
-    CREATE_HISTORY_TABLE: 'CREATE TABLE IF NOT EXISTS History(acId INTEGER UNIQUE, name TEXT, '+
-                          'previewurl TEXT, viewernum INTEGER, creatorName TEXT)'
+    DBVER: "2.1",
+    CREATE_HISTORY_TABLE: 'CREATE TABLE IF NOT EXISTS History(acId INTEGER UNIQUE, channelId INTEGER, '+
+                          'name TEXT, previewurl TEXT, viewernum INTEGER, creatorName TEXT)'
 }
 
 var db = openDatabaseSync("AcFun", "", "AcFun Database", 1000000);
 
 if (db.version !== QUERY.DBVER){
     var change = function (tx){
-        try { tx.executeSql('DROP TABLE History') } catch(e){};
+        tx.executeSql('DROP TABLE IF EXISTS History');
         tx.executeSql(QUERY.CREATE_HISTORY_TABLE);
     }
     db.changeVersion(db.version, QUERY.DBVER, change);
@@ -21,10 +21,10 @@ if (db.version !== QUERY.DBVER){
     db.transaction(trans);
 }
 
-function storeHistory(acId, name, previewurl, viewernum, creatorName){
+function storeHistory(acId, channelId, name, previewurl, viewernum, creatorName){
     db.transaction(function(tx){
-                       tx.executeSql('INSERT OR REPLACE INTO History VALUES (?,?,?,?,?)',
-                                     [acId, name, previewurl, viewernum, creatorName]);
+                       tx.executeSql('INSERT OR REPLACE INTO History VALUES (?,?,?,?,?,?)',
+                                     [acId, channelId, name, previewurl, viewernum, creatorName]);
                    })
 }
 
@@ -36,6 +36,7 @@ function loadHistory(model){
                                var prop = rs.rows.item(i);
                                prop.acId = Number(prop.acId);
                                prop.viewernum = Number(prop.viewernum);
+                               prop.channelId = Number(prop.channelId);
                                model.append(prop);
                            }
                        })

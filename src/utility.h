@@ -38,6 +38,12 @@ public:
     // Make date readable
     Q_INVOKABLE QString easyDate(const QDateTime &date);
 
+    // Parse XML text
+    Q_INVOKABLE QString domNodeValue(const QString &data, const QString &tagName);
+
+    // Launch built-in browser
+    Q_INVOKABLE void openURLDefault(const QString &url);
+
 private:
     explicit Utility(QObject *parent = 0);
 

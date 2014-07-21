@@ -1,5 +1,6 @@
 #include "utility.h"
 #include "acnetworkaccessmanagerfactory.h"
+#include <QtXml/QDomDocument>
 
 #ifdef Q_OS_SYMBIAN
 #include <apgcli.h>
@@ -77,6 +78,22 @@ QString Utility::urlQueryItemValue(const QString &url, const QString &key) const
     return myUrl.queryItemValue(key);
 }
 
+QString Utility::domNodeValue(const QString &data, const QString &tagName)
+{
+    QDomDocument doc;
+    if (doc.setContent(data)){
+        QDomElement element = doc.documentElement();
+        QDomNodeList list = element.elementsByTagName(tagName);
+        for (uint i=0; i<list.length(); i++){
+            QDomElement e = list.at(i).toElement();
+            if (!e.isNull()){
+                return e.text();
+            }
+        }
+    }
+    return QString();
+}
+
 void Utility::launchPlayer(const QString &url)
 {
 #ifdef Q_OS_SYMBIAN
@@ -98,8 +115,21 @@ void Utility::launchPlayer(const QString &url)
     VideoSuiteInterface suite;
     QStringList list = url.split("\n");
     suite.play(list);
+#elif defined(Q_WS_SIMULATOR)
+    qDebug() << url;
 #else
     QDesktopServices::openUrl(url);
+#endif
+}
+
+void Utility::openURLDefault(const QString &url)
+{
+#ifdef Q_OS_SYMBIAN
+    TRAP_IGNORE(LaunchL(0x10008D39, "4 "+url));
+#elif defined(Q_WS_SIMULATOR)
+    qDebug() << "Open browser:" << url;
+#else
+    QDesktopServices::openUrl(QUrl(url));
 #endif
 }
 

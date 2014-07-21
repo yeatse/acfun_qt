@@ -16,7 +16,7 @@ QtObject {
         }
     }
 
-    function viewDetail(vid){
+    function viewDetail(vid, cid){
         var id;
         if (typeof(vid) === "number"){
             id = vid;
@@ -25,7 +25,16 @@ QtObject {
             if (tmp) id = tmp[2];
             else return;
         }
-        pageStack.push(Qt.resolvedUrl("VideoDetailPage.qml"), {"acId": id});
+        var prop = {"acId": id};
+        if (cid==63||cid==73||cid==110||cid==75||cid==74||cid==76){
+            // article
+            pageStack.push(Qt.resolvedUrl("VideoDetailCom/ArticlePage.qml"), prop);
+        } else if (cid==71){
+            // flash
+            pageStack.push(Qt.resolvedUrl("VideoDetailCom/OldDetailPage.qml"), prop);
+        } else {
+            pageStack.push(Qt.resolvedUrl("VideoDetailPage.qml"), prop);
+        }
     }
 
     function playVideo(acId, type, sid, cid){

@@ -13,10 +13,7 @@ MyPage {
     tools: ToolBarLayout {
         ToolButton {
             iconSource: "toolbar-back";
-            onClicked: {
-                pageStack.pop(undefined, true);
-                pageStack.pop();
-            }
+            onClicked: pageStack.pop();
         }
         ToolButton {
             iconSource: "../../gfx/favourite.svg";
@@ -82,8 +79,8 @@ MyPage {
         }
 
         function log(){
-            Database.storeHistory(acId, detail.name, detail.previewurl,
-                                  detail.viewernum, detail.creator.name);
+            Database.storeHistory(acId, detail.category.id, detail.name,
+                                  detail.previewurl, detail.viewernum, detail.creator.name);
         }
 
         function share(){
@@ -92,7 +89,7 @@ MyPage {
             url += "&type=3";
             url += "&title="+encodeURIComponent(internal.detail.name||"");
             url += "&pic="+encodeURIComponent(internal.detail.previewurl||"");
-            Qt.openUrlExternally(url);
+            utility.openURLDefault(url);
         }
 
         function loadText(){

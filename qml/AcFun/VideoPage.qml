@@ -41,6 +41,20 @@ Page {
         messageModel.clear();
     }
 
+    Connections {
+        target: networkHelper;
+        onRequestFailed: {
+            if (url.toString().indexOf("ipd.pps.tv") > 0){
+                VL.addMessage("无法解析视频> <");
+            }
+        }
+        onRequestFinished: {
+            if (url.toString().indexOf("ipd.pps.tv") > 0){
+                VL.loadPpsData(message);
+            }
+        }
+    }
+
     Loader {
         id: playerLoader;
         anchors.fill: parent;

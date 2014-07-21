@@ -1,10 +1,10 @@
 TEMPLATE = app
 TARGET = AcFun
 
-VERSION = 2.2.0
+VERSION = 2.3.0
 DEFINES += VER=\\\"$$VERSION\\\"
 
-QT += network webkit
+QT += network webkit xml
 CONFIG += mobility
 MOBILITY += multimedia systeminfo
 
@@ -93,6 +93,5 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog
 
-# Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()

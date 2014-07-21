@@ -77,23 +77,12 @@ MyPage {
             function s(obj){
                 titleBanner.loading = false;
                 detail = obj;
-                if (isArticle(obj.category.id)){
-                    pageStack.push(Qt.resolvedUrl("VideoDetailCom/ArticlePage.qml"),
-                                   {acId: acId}, true);
-                } else {
-                    getComments();
-                }
+                getComments();
             }
             function f(err){
                 titleBanner.loading = false;
                 titleBanner.error = true;
-                if (err === 403){
-                    pageStack.push(Qt.resolvedUrl("VideoDetailCom/OldDetailPage.qml"),
-                                   {acId: acId},
-                                   true);
-                } else {
-                    signalCenter.showMessage(err);
-                }
+                signalCenter.showMessage(err);
             }
             Script.getVideoDetail(acId, s, f);
         }
@@ -128,8 +117,8 @@ MyPage {
         }
 
         function log(){
-            Database.storeHistory(acId, detail.name, detail.previewurl,
-                                  detail.viewernum, detail.creator.name);
+            Database.storeHistory(acId, detail.category.id, detail.name,
+                                  detail.previewurl, detail.viewernum, detail.creator.name);
         }
 
         function share(){
@@ -138,7 +127,7 @@ MyPage {
             url += "&type=3";
             url += "&title="+encodeURIComponent(internal.detail.name||"");
             url += "&pic="+encodeURIComponent(internal.detail.previewurl||"");
-            Qt.openUrlExternally(url);
+            utility.openURLDefault(url);
         }
 
         function isArticle(id){
@@ -272,8 +261,8 @@ MyPage {
                 Repeater {
                     model: [
                         internal.detail.creator ? internal.detail.creator.name : " ",
-                        internal.detail.viewernum||"0",
-                        internal.detail.commentnum||"0"
+                                                  internal.detail.viewernum||"0",
+                                                  internal.detail.commentnum||"0"
                     ]
                     Text {
                         font: constant.subTitleFont;

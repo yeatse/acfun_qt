@@ -64,7 +64,7 @@ Column {
             MouseArea {
                 id: mouseArea;
                 anchors.fill: parent;
-                onClicked: signalCenter.viewDetail(model.acId);
+                onClicked: signalCenter.viewDetail(model.acId, model.channelId);
             }
         }
     }

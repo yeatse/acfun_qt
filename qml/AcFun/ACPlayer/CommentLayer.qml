@@ -9,6 +9,7 @@ Item {
     property int timePlayed;
 
     property int commentCount: 0;
+    property int secondsPlayed: timePlayed / 1000;
 
     function get(){
         var opt = {
@@ -17,7 +18,7 @@ Item {
         }
         function s(){
             console.log("comment loaded");
-            root.timePlayedChanged.connect(createText);
+            root.secondsPlayedChanged.connect(createText);
         }
         function f(err){
             console.log(err);
@@ -26,8 +27,8 @@ Item {
     }
 
     function createText(){
-        if (timePlayed === 0) Utils.commentIndex = 0;
-        var secs = timePlayed / 1000;
+        if (secondsPlayed === 0) Utils.commentIndex = 0;
+        var secs = secondsPlayed;
         var poolIdx = Utils.commentPool[Utils.commentIndex];
         while(poolIdx !== undefined && poolIdx.time < secs
               && root.commentCount < visual.maxCommentCount){
@@ -62,7 +63,7 @@ Item {
                 property: "x";
                 from: root.width;
                 to: -commentText.width;
-                duration: 3000;
+                duration: 5000;
                 onCompleted: commentText.destroy();
             }
 

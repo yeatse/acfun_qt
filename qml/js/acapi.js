@@ -14,7 +14,9 @@ var AcApi = {
     hotkeys:            "http://api.acfun.tv:1069/hotkeys",
     videos_search:      "http://api.acfun.tv:1069/videos/search",
     danmaku:            "http://danmaku1.acfun.tv",
-    users:              "http://api.acfun.tv:1069/users"
+    users:              "http://api.acfun.tv:1069/users",
+
+    video_comment:      "http://static.comment.acfun.tv"
 }
 
 var WebRequest = function (method, url){

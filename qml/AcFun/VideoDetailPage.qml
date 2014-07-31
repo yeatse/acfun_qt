@@ -211,7 +211,7 @@ MyPage {
                             page.acId,
                             e.type,
                             e.sourceId,
-                            e.commentId||e.videoId
+                            e.videoId||e.commentId
                             );
             }
         }
@@ -425,7 +425,7 @@ MyPage {
                                     page.acId,
                                     modelData.type,
                                     modelData.sourceId,
-                                    modelData.commentId||modelData.videoId
+                                    modelData.videoId||modelData.commentId
                                     );
                     }
                 }

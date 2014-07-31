@@ -269,7 +269,7 @@ function getClass(option, onSuccess, onFailed){
 }
 
 function getSyncComments(option, onSuccess, onFailed){
-    var req = new WebRequest("GET", AcApi.danmaku+"/"+option.cid+".json");
+    var req = new WebRequest("GET", AcApi.video_comment+"/"+option.cid);
     function s(obj){
         var pool = option.pool;
         var decodeDanmaku = function(value){
@@ -289,7 +289,7 @@ function getSyncComments(option, onSuccess, onFailed){
         var sortPool = function(a, b){
             return a.time - b.time;
         }
-        obj.forEach(decodeDanmaku);
+        obj[0].forEach(decodeDanmaku);
         pool.sort(sortPool);
         onSuccess();
     }

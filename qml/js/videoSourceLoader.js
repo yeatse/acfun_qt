@@ -1,3 +1,5 @@
+Qt.include("YoukuParser.js");
+
 var sid, type, model;
 
 function loadSource(t, s, m){
@@ -48,45 +50,30 @@ function loadYouku(){
         addMessage("视频解析失败> <");
         return;
     }
-    var url = "http://api.3g.youku.com/videos/"+sid
-            +"/download?point=1&pid=69b81504767483cf&format=1,4,6";
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-                if (xhr.readyState === xhr.DONE){
-                    if (xhr.status === 200){
-                        try {
-                            var obj = JSON.parse(xhr.responseText);
-                            if (obj.status === "success"){
-                                if (obj["results"]["3gphd"].length>0){
-                                    launchPlayer(obj["results"]["3gphd"][0].url);
-                                } else if (obj["results"]["mp4"].length>0){
-                                    var u = [];
-                                    obj["results"]["mp4"].forEach(function(value){u.push(value.url)});
-                                    addMessage("正在尝试使用系统播放器...");
-                                    utility.launchPlayer(u.join("\n"));
-                                } else {
-                                    addMessage("视频格式暂不支持，抱歉了QAQ");
-                                }
-                            } else {
-                                addMessage("服务器错误");
-                            }
-                        } catch(e){
-                            addMessage("无法解析视频> <");
-                        }
-                    } else {
-                        addMessage("网络连接错误，代码"+xhr.status);
-                    }
-                }
-            }
-    xhr.open("GET", url);
-    xhr.send();
+    fetch(sid);
 }
 
 function loadQQ(){
-    addMessage("视频来自QQ，正在打开浏览器...");
-    var u = "http://vsrc.store.qq.com/"+sid
-            +".mp4?channel=vhot2&sdtfrom=v2&r=931&rfc=v0"
-    utility.openURLDefault(u);
+    addMessage("视频来自QQ，正在解析源地址...");
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+                if (xhr.readyState == XMLHttpRequest.DONE){
+                    if (xhr.status == 200){
+                        var QZOutputJson;
+                        try {
+                            eval(xhr.responseText);
+                            var url = QZOutputJson.vd.vi[0].url;
+                            launchPlayer(url);
+                        } catch (e){
+                            addMessage("视频解析失败> <");
+                        }
+                    } else {
+                        addMessage("视频解析失败> <");
+                    }
+                }
+            }
+    xhr.open("GET", "http://vv.video.qq.com/geturl?vid=%1&otype=json".arg(sid));
+    xhr.send();
 }
 
 function loadPps(){

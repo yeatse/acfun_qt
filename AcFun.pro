@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = AcFun
 
-VERSION = 2.3.0
+VERSION = 2.4.0
 DEFINES += VER=\\\"$$VERSION\\\"
 
 QT += network webkit xml

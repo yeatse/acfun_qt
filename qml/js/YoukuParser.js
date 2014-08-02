@@ -193,7 +193,7 @@ var YoukuParser = function(){
     }
 
     function showStatusText(text) {
-        YoukuParser.prototype.fail(text);
+        YoukuParser.prototype.error(text);
     }
 
     this.start = function(vid){
@@ -205,6 +205,6 @@ YoukuParser.prototype.success = function(url){
             console.log(url);
         }
 
-YoukuParser.prototype.fail = function(message){
+YoukuParser.prototype.error = function(message){
             console.log(message);
         }

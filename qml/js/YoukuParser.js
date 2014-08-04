@@ -199,12 +199,8 @@ var YoukuParser = function(){
     this.start = function(vid){
              fetch(vid);
          }
-}
+};
 
-YoukuParser.prototype.success = function(url){
-            console.log(url);
-        }
-
-YoukuParser.prototype.error = function(message){
-            console.log(message);
-        }
+YoukuParser.prototype = new VideoParser();
+YoukuParser.prototype.constructor = YoukuParser;
+YoukuParser.prototype.name = "优酷";

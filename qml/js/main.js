@@ -289,7 +289,9 @@ function getSyncComments(option, onSuccess, onFailed){
         var sortPool = function(a, b){
             return a.time - b.time;
         }
-        obj[0].forEach(decodeDanmaku);
+        for (var i in obj){
+            obj[i].forEach(decodeDanmaku);
+        }
         pool.sort(sortPool);
         onSuccess();
     }

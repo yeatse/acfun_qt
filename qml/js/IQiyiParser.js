@@ -7,6 +7,7 @@ IQiyiParser.prototype.start = function(vid){
             var resultUrl = "";
 
             var url = "http://cache.m.iqiyi.com/jp/tmts/272448000/1ed6cc39cdcfeb2f3d9156a6f1b8943e/";
+            var now = Date.now();
             var param = {
                 "uid": "",
                 "cupid": "qc_100001_100102",
@@ -16,15 +17,16 @@ IQiyiParser.prototype.start = function(vid){
                 "src": "d846d0c32d664d32b6b54ea48997a589",
                 "sc": "921359bdda1f665ecbf14842b2222f5f",
                 "__refI": "",
-                "__ctmM": Date.now(),
-                "t": param.__ctmM,
+                "__ctmM": now,
+                "t": now,
                 "__jsT": "sijsc",
                 "callback": "QVCallback"
             }
-            url += "?";
+            var paramList = [];
             for (var i in param){
-                url += i + "=" + param[i];
+                paramList.push(i + "=" + param[i]);
             }
+            url += "?" + paramList.join("&");
             var QVCallback = function(obj){
                 if (obj && obj.code && obj.code == "A00000"){
                     resultUrl = obj.data.m3u;

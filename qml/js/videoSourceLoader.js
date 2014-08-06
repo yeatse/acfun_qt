@@ -3,6 +3,7 @@ Qt.include("SinaParser.js");
 Qt.include("YoukuParser.js");
 Qt.include("QQParser.js");
 Qt.include("LetvParser.js");
+Qt.include("IQiyiParser.js");
 
 var sid, type, model;
 
@@ -18,6 +19,8 @@ function loadSource(t, s, m){
         parser = new QQParser();
     else if (type === "letv")
         parser = new LetvParser();
+    else if (type === "iqiyi")
+        parser = new IQiyiParser();
 
     if (parser == undefined){
         addMessage("未支持的视频源:"+type);
